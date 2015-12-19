@@ -7,32 +7,106 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <header>
-    <nav class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <a class="brand title" href="/">PasteBukket</a>
-                <div class="nav-collapse">
-                    <ul class="nav">
-                        <li><a class="active" href="https://paste.teamblueridge.org/" title="Create A New Paste">Create</a></li>
-                        <li><a href="https://paste.teamblueridge.org/lists" title="Recent Pastes">Recent</a></li>
-                        <li><a href="https://paste.teamblueridge.org/trends" title="Trending Pastes">Trending</a></li>
-                        <li><a href="https://paste.teamblueridge.org/api" title="API">API</a></li>
-                        <li><a href="https://paste.teamblueridge.org/about" title="About">About</a></li>
-                    </ul>
-                </div>
-            </div>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">PasteBukket</a>
         </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Create</a></li>
+            <li><a href="/api/">API Info</a></li>
+            <li><a href="/recent/">Recent</a></li>
+            <li><a href="/trending/">Trending</a></li>
+            <li><a href="/about/">About</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
     </nav>
 </header>
 <main>
-
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <div class="page-header">
+                    <h1> Create a new paste</h1>
+                </div>
+            </div>
+            <div class="span12">
+                <form action="/api/create" method="post" class="form-vertical well">
+                <div class="row">
+                    <div class="span3">
+                        <label for="name">Author</label>
+                        <input type="text" name="name" value="" id="name" class="span3" maxlength="32" tabindex="1"/>
+                    </div>
+                    <div class="span3">
+                        <label for="title">Title</label>
+                        <input value="" class="span3" type="text" id="title" name="title" tabindex="2" maxlength="50"/>
+                    </div>
+                    <div class="span3">
+                        <label for="lang">Language</label>
+                        <select name="lang" id="lang" class="select span3" tabindex="3">
+                            {% for lang in languages *%}
+                                <option value="{{ languages['ugly'][ loop.index ] }}">{{ languages['pretty'][ loop.index ] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span12">
+                        <label for="code">Your paste <span class="instruction"> - Paste your paste here</span></label>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <textarea id="code" class="span12" name="code" rows="20" tabindex="4"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span8">
+                        <div class="control-group">
+                            <div class="controls">
+                                <label class="checkbox">
+                                <input type="checkbox" name="snipurl" value="1" id="snipurl" tabindex="5"/>Create Shorturl - Create a shorter url that redirects to your paste?</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <label class="checkbox">
+                                <input type="checkbox" name="private" value="1" id="private" tabindex="6"/>Private - Private paste aren't shown in recent listings.</label>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label for="expire">Delete After <span class="instruction">- When should we delete your paste?</span></label>
+                            <select name="expire" id="expire" class="select" tabindex="7">
+                                <option value="5">5 Minutes</option>
+                                <option value="60">1 Hour</option>
+                                <option value="1440">1 Day</option>
+                                <option value="10080">1 Week</option>
+                                <option value="40320">1 Month</option>
+                                <option value="483840">1 Year</option>
+                                <option value="0" selected="selected">Keep Forever</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" name="submit" value="submit" class="btn-large btn-primary"><i class="icon-pencil icon-white"></i> Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </main>
-<footer>
+<footer class="footer">
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </footer>
